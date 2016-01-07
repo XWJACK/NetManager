@@ -1,0 +1,343 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F12600C71C3D72B800ACC578 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12600C61C3D72B800ACC578 /* AppDelegate.swift */; };
+		F12600C91C3D72B800ACC578 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12600C81C3D72B800ACC578 /* ViewController.swift */; };
+		F12600CC1C3D72B800ACC578 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F12600CA1C3D72B800ACC578 /* Main.storyboard */; };
+		F12600CE1C3D72B800ACC578 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F12600CD1C3D72B800ACC578 /* Assets.xcassets */; };
+		F12600D11C3D72B800ACC578 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F12600CF1C3D72B800ACC578 /* LaunchScreen.storyboard */; };
+		F12600DE1C3D73AD00ACC578 /* xSocketPing.c in Sources */ = {isa = PBXBuildFile; fileRef = F12600DD1C3D73AD00ACC578 /* xSocketPing.c */; settings = {ASSET_TAGS = (); }; };
+		F12600E11C3D745700ACC578 /* xSocketPing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12600E01C3D745700ACC578 /* xSocketPing.swift */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F12600C31C3D72B800ACC578 /* NetManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F12600C61C3D72B800ACC578 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F12600C81C3D72B800ACC578 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F12600CB1C3D72B800ACC578 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F12600CD1C3D72B800ACC578 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F12600D01C3D72B800ACC578 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F12600D21C3D72B800ACC578 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F12600DC1C3D73AC00ACC578 /* NetManager-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetManager-Bridging-Header.h"; sourceTree = "<group>"; };
+		F12600DD1C3D73AD00ACC578 /* xSocketPing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xSocketPing.c; path = C/xSocketPing.c; sourceTree = "<group>"; };
+		F12600E01C3D745700ACC578 /* xSocketPing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = xSocketPing.swift; path = C/xSocketPing.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F12600C01C3D72B800ACC578 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F12600BA1C3D72B800ACC578 = {
+			isa = PBXGroup;
+			children = (
+				F12600C51C3D72B800ACC578 /* NetManager */,
+				F12600C41C3D72B800ACC578 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F12600C41C3D72B800ACC578 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F12600C31C3D72B800ACC578 /* NetManager.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F12600C51C3D72B800ACC578 /* NetManager */ = {
+			isa = PBXGroup;
+			children = (
+				F12600DB1C3D731100ACC578 /* C */,
+				F12600DA1C3D72F000ACC578 /* Storyboard */,
+				F12600D91C3D72E200ACC578 /* Delegate */,
+				F12600D81C3D72D200ACC578 /* ViewController */,
+				F12600CD1C3D72B800ACC578 /* Assets.xcassets */,
+				F12600D21C3D72B800ACC578 /* Info.plist */,
+			);
+			path = NetManager;
+			sourceTree = "<group>";
+		};
+		F12600D81C3D72D200ACC578 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F12600C81C3D72B800ACC578 /* ViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		F12600D91C3D72E200ACC578 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				F12600C61C3D72B800ACC578 /* AppDelegate.swift */,
+			);
+			name = Delegate;
+			sourceTree = "<group>";
+		};
+		F12600DA1C3D72F000ACC578 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				F12600CA1C3D72B800ACC578 /* Main.storyboard */,
+				F12600CF1C3D72B800ACC578 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		F12600DB1C3D731100ACC578 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				F12600DD1C3D73AD00ACC578 /* xSocketPing.c */,
+				F12600DC1C3D73AC00ACC578 /* NetManager-Bridging-Header.h */,
+				F12600E01C3D745700ACC578 /* xSocketPing.swift */,
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F12600C21C3D72B800ACC578 /* NetManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F12600D51C3D72B900ACC578 /* Build configuration list for PBXNativeTarget "NetManager" */;
+			buildPhases = (
+				F12600BF1C3D72B800ACC578 /* Sources */,
+				F12600C01C3D72B800ACC578 /* Frameworks */,
+				F12600C11C3D72B800ACC578 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NetManager;
+			productName = NetManager;
+			productReference = F12600C31C3D72B800ACC578 /* NetManager.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F12600BB1C3D72B800ACC578 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "许文杰";
+				TargetAttributes = {
+					F12600C21C3D72B800ACC578 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = F12600BE1C3D72B800ACC578 /* Build configuration list for PBXProject "NetManager" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F12600BA1C3D72B800ACC578;
+			productRefGroup = F12600C41C3D72B800ACC578 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F12600C21C3D72B800ACC578 /* NetManager */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F12600C11C3D72B800ACC578 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F12600D11C3D72B800ACC578 /* LaunchScreen.storyboard in Resources */,
+				F12600CE1C3D72B800ACC578 /* Assets.xcassets in Resources */,
+				F12600CC1C3D72B800ACC578 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F12600BF1C3D72B800ACC578 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F12600C91C3D72B800ACC578 /* ViewController.swift in Sources */,
+				F12600C71C3D72B800ACC578 /* AppDelegate.swift in Sources */,
+				F12600DE1C3D73AD00ACC578 /* xSocketPing.c in Sources */,
+				F12600E11C3D745700ACC578 /* xSocketPing.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F12600CA1C3D72B800ACC578 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F12600CB1C3D72B800ACC578 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F12600CF1C3D72B800ACC578 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F12600D01C3D72B800ACC578 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F12600D31C3D72B800ACC578 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F12600D41C3D72B800ACC578 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F12600D61C3D72B900ACC578 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = NetManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xwjack.NetManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "NetManager/NetManager-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F12600D71C3D72B900ACC578 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = NetManager/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xwjack.NetManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "NetManager/NetManager-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F12600BE1C3D72B800ACC578 /* Build configuration list for PBXProject "NetManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F12600D31C3D72B800ACC578 /* Debug */,
+				F12600D41C3D72B800ACC578 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F12600D51C3D72B900ACC578 /* Build configuration list for PBXNativeTarget "NetManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F12600D61C3D72B900ACC578 /* Debug */,
+				F12600D71C3D72B900ACC578 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F12600BB1C3D72B800ACC578 /* Project object */;
+}
