@@ -12,189 +12,247 @@
 #include <sys/types.h>//基本系统数据类型
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <sys/time.h>//用于获取当前时间
+//get current of time
+#include <sys/time.h>
 #include <arpa/inet.h>//inet_ntoa将一个IP转换成一个互联网标准点分格式的字符串
 #include <unistd.h>//close(int)
 #include <netdb.h>//定义了与网络有关的结构、变量类型、宏、函数等
+//ip packet structure
+#include <netinet/ip.h>
+//icmp packet structure
+#include <netinet/ip_icmp.h>
 
-#include <netinet/ip.h>//ip数据包结构
-#include <netinet/ip_icmp.h>//icmp数据包结构
 
-int data_size = 56;//icmp报头为8字节,数据部分为56字节,数据报长度最大为64字节
-int pid = 0;//当前线程号
-int ttl = 64;//生存时间
-int socketfd = 0;//socket
+//time to live
+int ttl = 64;
+//icmp data size ,icmp header 8bytes,data size 56bytes,the maximum of packet size 64bytes
+int dataSize = 56;
+//packet number
+int sendPacketNumber = 0;
+int recvPacketNumber = 0;
+//ip address
+char * ipAddr;
+
+//send packet of time
+struct timeval *tvSend;
+//receive packet of time
+struct timeval tvRecv;
 
 //Socket address, internet style.
-struct sockaddr_in dst_addr;
-struct sockaddr_in recv_addr;
+//the destination address
+struct sockaddr_in dstAddr;
+//the receive address
+struct sockaddr_in recvAddr;
 
-struct timeval *tvsend;//发送数据包的时间
-struct timeval tvrecv;//接受数据包的时间,不用指针
+//send icmp buffer
+char sendBuffer[1024] = {0};
+//receive icmp replay buffer
+char recvBuffer[1024] = {0};
 
-char icmp_pkt[4096] = {0};//发送icmp缓冲区
-char recv_pkt[1024] = {0};//接受icmp缓冲区,一般设置较大,防止缓冲区溢出
+//the current process of id
+int pid;
+//socket
+int socketfd = 0;
 
-
-u_short checksum(u_short* buffer, int size);
-double time_sub(struct timeval *recvtime,struct timeval *sendtime);
-int pack(int number);
-int send_icmp(struct sockaddr_in ip_addr, int packnumber);
-void ping(char *ipAddress, int number);
-void recv_icmp();
-int unpack(char *pkt_buf, long size);
-int CreateSocket();
-void SettingSocket();
-void DestorySocket();
-void SettingIP(char *ip_addr);
+unsigned short checkSum(unsigned short *buffer, int size);
+double timeSubtract(struct timeval *recvTimeStamp, struct timeval *sendTimeStamp);
+int fillPacket(int packetSequence);
+int sendPacket(int packetSequence);
+void settingIP();
 void getPid();
+int createSocket();
+void settingSocket(int timeout);
+void destorySocket();
+void unPacket(char* packetBuffer,char* back, long size);
+void receivePacket();
+void ping(char *ipAddress, int number, int timeout);
+void calculate(char* back);
 
-
-//校检码设置,计算校检和经典函数
-u_short checksum(u_short* buffer, int size){
-    int cksum = 0;
+//statistics
+void statistics(char* back){
+    double percent = ((double)sendPacketNumber - (double)recvPacketNumber) / (double)sendPacketNumber * 100;
+    sprintf(back, "---%s ping statistics---\n%d packets trasmitted, %d packet received, %0.1f%% packet loss",inet_ntoa(dstAddr.sin_addr),sendPacketNumber,recvPacketNumber,percent);
+}
+//check sum
+unsigned short checkSum(unsigned short *buffer, int size){
+    unsigned long checkSum = 0;
     while (size > 1) {
-        cksum += *buffer++;
-        size -= sizeof(u_short);
+        checkSum += *buffer++;
+        size -= sizeof(unsigned short);//unsigned short is 2 bytes = 16 bits
     }
-    if (size) {
-        cksum += *(u_short*)buffer;
+    //if size is odd number
+    if (size == 1){
+        checkSum += *(unsigned short *)buffer;
     }
-    cksum = (cksum >> 16) + (cksum & 0xFFFF);
-    cksum += (cksum >> 16);
-    return ~cksum;
+    checkSum = (checkSum >> 16) + (checkSum & 0xFFFF);
+    checkSum += (checkSum >> 16);
+    return ~checkSum;
 }
 
-//计算时间差值
-double time_sub(struct timeval *recvtime,struct timeval *sendtime){
-    long sec = recvtime->tv_sec - sendtime->tv_sec;//计算秒
-    long usec = recvtime->tv_usec - sendtime->tv_usec;//计算毫秒
+//calculate time difference
+double timeSubtract(struct timeval *recvTimeStamp, struct timeval *sendTimeStamp){
+    //calculate seconds
+    long timevalSec = recvTimeStamp->tv_sec - sendTimeStamp->tv_sec;
+    //calculate microsends
+    long timevalUsec = recvTimeStamp->tv_usec - sendTimeStamp->tv_usec;
     
-    if(usec < 0){//判断毫秒差值是否小于0
-        recvtime->tv_sec = sec - 1;
-        recvtime->tv_usec = -usec;
+    //if microsends less then zero
+    if (timevalUsec < 0) {
+        timevalSec -= 1;
+        timevalUsec = - timevalUsec;
     }
-    return (sec * 1000.0 + usec) / 1000.0;
+    return (timevalSec * 1000.0 + timevalUsec) / 1000.0;
 }
 
-//填充ICMP数据报并放入icmp数据包缓冲区
-int pack(int number){
-    int packsize = 0;
-    struct icmp *icmp_header = (struct icmp *)icmp_pkt;
+//fill icmp packet and return size of packet
+int fillPacket(int packetSequence){
+    int packetSize = 0;
+    struct icmp *icmpHeader = (struct icmp *)sendBuffer;
     
-    icmp_header->icmp_type = ICMP_ECHO;
-    icmp_header->icmp_code = 0;
-    icmp_header->icmp_cksum = 0;
-    icmp_header->icmp_id = pid;
-    icmp_header->icmp_seq = number;
-    packsize = data_size + 8;//数据报大小等于icmp头部大小加上数据大小
-    tvsend = (struct timeval *)icmp_header->icmp_data;//将当前时间戳写入数据中,数据部分前8字节是时间戳
-    gettimeofday(tvsend, NULL);//获得当前的时间
-    icmp_header->icmp_cksum = checksum((u_short *)icmp_header, packsize);//最后计算校检和
-    return packsize;
+    icmpHeader->icmp_type = ICMP_ECHO;
+    icmpHeader->icmp_code = 0;
+    icmpHeader->icmp_cksum = 0;
+    icmpHeader->icmp_id = pid;
+    icmpHeader->icmp_seq = packetSequence;
+    packetSize = dataSize + 8;
+    tvSend = (struct timeval *)icmpHeader->icmp_data;
+    gettimeofday(tvSend, NULL);//get current of time
+    icmpHeader->icmp_cksum = checkSum((unsigned short *)icmpHeader, packetSize);
+    return packetSize;
 }
 
-//发送ICMP,向dst_addr的IP地址,发送第packnumber数据包
-int send_icmp(struct sockaddr_in ip_addr, int packnumber){
-    int packsize = 0;
-    packsize = pack(packnumber);
-    if ((sendto(socketfd, icmp_pkt, packsize, 0, (struct sockaddr *)&ip_addr, sizeof(ip_addr))) < 0) {
-        printf("发送失败\n");
+//send icmp packet to dstAddr
+int sendPacket(int packetSequence){
+    int packSize = 0;
+    packSize = fillPacket(packetSequence);
+    if ((sendto(socketfd, sendBuffer, packSize, 0, (struct sockaddr *)&dstAddr, sizeof(dstAddr))) < 0) {
+        printf("Send icmp packet Error\n");
+        sendPacketNumber--;
+        recvPacketNumber--;
         return -1;
     }
     return 0;
 }
 
-//给ipAddress发送number个icmp包
-void ping(char *ipAddress, int number){
-    int packnumber = 0;
-    
-    SettingIP(ipAddress);//设置IP地址
-    getPid();//获取用户进程
-    if (CreateSocket() != -1){
-        SettingSocket();
-        printf("PING %s(%s):%d bytes of data.\n",ipAddress,inet_ntoa(dst_addr.sin_addr),data_size);
-        while(packnumber < number){
-            send_icmp(dst_addr, packnumber);
-            recv_icmp();
-            sleep(1);
-            packnumber++;
-        }
-        DestorySocket();
-    }
+//setting ip address
+void settingIP(){
+    //initialize
+    bzero(&dstAddr,sizeof(dstAddr));
+    dstAddr.sin_family = AF_INET;
+    dstAddr.sin_addr.s_addr = inet_addr(ipAddr);
 }
 
-//接受数据包
-void recv_icmp(){
-    int recv_len = sizeof(recv_addr);
-    long size;
-    if ((size = recvfrom(socketfd, recv_pkt, sizeof(recv_pkt), 0, (struct sockaddr *)&recv_addr, (socklen_t *)&recv_len)) < 0) {
-        printf("接收失败");
-    }else{
-        gettimeofday(&tvrecv, NULL);
-        unpack(recv_pkt, size);
-    }
-}
-
-//解包
-int unpack(char *pkt_buf, long size){
-    struct ip *ip_header = NULL;
-    struct icmp *icmp_header = NULL;
-    
-    double rtt;//往返时间
-    int ip_hdrlen;//ip头部长度,用于剥离ip数据报
-    
-    ip_header = (struct ip *)pkt_buf;
-    ip_hdrlen = ip_header->ip_hl<<2;//求ip报头长度,即ip报头的长度标志乘4
-    icmp_header = (struct icmp *)(pkt_buf + ip_hdrlen);//越过IP头，指向ICMP报头
-    size -= ip_hdrlen;
-    if (size < 8){
-        printf("解包失败,数据包小\n");
-        return -1;
-    }
-    
-    if ((icmp_header->icmp_type == ICMP_ECHOREPLY) && (icmp_header->icmp_id == pid)) {
-        tvsend = (struct timeval *)icmp_header->icmp_data;
-        gettimeofday(&tvrecv, NULL);
-        //以毫秒为单位计算rtt
-        rtt = time_sub(&tvrecv, tvsend);
-        printf("%ld bytes from %s: icmp_seq=%u ttl=%d time=%.1f ms\n",size,inet_ntoa(recv_addr.sin_addr),icmp_header->icmp_seq,ip_header->ip_ttl,rtt);
-    }else{
-        printf("解包失败\n");
-        return -1;
-    }
-    return 0;
-}
-
-//创建socket
-int CreateSocket(){
-    //原始套接字SOCK_RAW需要使用root权限,所以改用SOCK_DGRAM
-    if ((socketfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_ICMP)) < 0) {
-        printf("Socket创建失败\n");
-        return -1;
-    }
-    return 0;
-}
-//设置socket
-void SettingSocket(){
-    int size = 50 * 1024;
-    //扩大套接字接收缓冲区到50K这样做主要为了减小接收缓冲区溢出的可能性,若无意中ping一个广播地址或多播地址,将会引来大量应答
-    setsockopt(socketfd, SOL_SOCKET, SO_RCVBUF, &size, sizeof(size));
-}
-//销毁socket
-void DestorySocket(){
-    close(socketfd);
-}
-
-//设置IP地址
-void SettingIP(char *ip_addr){
-    
-    bzero(&dst_addr,sizeof(dst_addr));//置字节字符串前n个字节为零且包括‘\0’
-    dst_addr.sin_family = AF_INET;
-    dst_addr.sin_addr.s_addr = inet_addr(ip_addr);
-}
-
-//获取进程
+//get current process id
 void getPid(){
     pid = getpid();
 }
+
+//create socket
+int createSocket(){
+    //原始套接字SOCK_RAW需要使用root权限,所以改用SOCK_DGRAM
+    if ((socketfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_ICMP)) < 0) {
+        printf("Create Socket Error\n");
+        return -1;
+    }
+    return 0;
+}
+
+//setting socket
+void settingSocket(int timeout){
+    int size = 50 * 1024;
+    //setting timeout seconds or you can set it by microseconds
+    struct timeval timeOut;
+    timeOut.tv_sec = timeout;
+    //扩大套接字接收缓冲区到50K这样做主要为了减小接收缓冲区溢出的可能性,若无意中ping一个广播地址或多播地址,将会引来大量应答
+    setsockopt(socketfd, SOL_SOCKET, SO_RCVBUF, &size, sizeof(size));
+    setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeOut, sizeof(timeOut));
+}
+
+//destory socket
+void destorySocket(){
+    close(socketfd);
+}
+
+//unpacket
+void unPacket(char* packetBuffer,char* back, long size){
+    struct ip *ipHeader = NULL;
+    struct icmp *icmpHeader = NULL;
+    
+    double rtt;//往返时间
+    int ipHeaderLength;//ip header length
+    
+    char *error;
+    
+    ipHeader = (struct ip *)packetBuffer;
+    ipHeaderLength = ipHeader->ip_hl<<2;//求ip报头长度,即ip报头的长度标志乘4
+    icmpHeader = (struct icmp *)(packetBuffer + ipHeaderLength);//越过IP头，point to ICMP header
+    size -= ipHeaderLength;
+    if (size < 8){
+        error = "Unpacket Error:packet size minmum 8 bytes";
+        back = error;
+    }
+    
+    if ((icmpHeader->icmp_type == ICMP_ECHOREPLY) && (icmpHeader->icmp_id == pid)) {
+        tvSend = (struct timeval *)icmpHeader->icmp_data;
+        gettimeofday(&tvRecv, NULL);
+        //以毫秒为单位计算rtt
+        rtt = timeSubtract(&tvRecv, tvSend);
+        sprintf(back,"%ld bytes from %s: icmp_seq=%u ttl=%d time=%.1f ms",size,inet_ntoa(recvAddr.sin_addr),icmpHeader->icmp_seq,ipHeader->ip_ttl,rtt);
+    }else{
+        error = "Unpacket Error";
+        back = error;
+    }
+}
+
+//receive packet
+void receivePacket(char* back){
+    //claculate packet size
+    int packetSize = sizeof(recvAddr);
+    long size;
+    if ((size = recvfrom(socketfd, recvBuffer, sizeof(recvBuffer), 0, (struct sockaddr *)&recvAddr, (socklen_t *)&packetSize)) < 0) {
+        sprintf(back,"Receive timeout\n");
+        recvPacketNumber--;
+    }else{
+        gettimeofday(&tvRecv, NULL);
+        char temp[100] = {0};
+        unPacket(recvBuffer, temp, size);
+        printf("%s\n",temp);
+    }
+}
+
+
+void ping(char *ipAddress, int number, int timeout){
+    int packnumber = 0;
+    ipAddr = ipAddress;
+    sendPacketNumber = number;
+    recvPacketNumber = number;
+    
+    settingIP();
+    getPid();
+    if (createSocket() != -1){
+        settingSocket(timeout);
+        printf("PING %s(%s):%d bytes of data.\n",ipAddress,inet_ntoa(dstAddr.sin_addr),dataSize);
+        while(packnumber < number){
+            if (sendPacket(packnumber) != -1){
+                char back[100] = {0};
+                receivePacket(back);
+                printf("%s",back);
+            }
+            sleep(1);
+            packnumber++;
+        }
+        char back[100] = {0};
+        statistics(back);
+        printf("%s\n",back);
+        destorySocket();
+    }
+}
+
+
+
+
+
+
+
+
+

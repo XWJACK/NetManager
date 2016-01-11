@@ -98,8 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				F12600DD1C3D73AD00ACC578 /* xSocketPing.c */,
-				F12600DC1C3D73AC00ACC578 /* NetManager-Bridging-Header.h */,
 				F12600E01C3D745700ACC578 /* xSocketPing.swift */,
+				F12600DC1C3D73AC00ACC578 /* NetManager-Bridging-Header.h */,
 			);
 			name = C;
 			sourceTree = "<group>";

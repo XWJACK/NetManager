@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let ping = xping(addr: "192.168.1.1")
-        ping.ping()
+        let ping:xSocketPing = xSocketPing(ipAddress: "192.168.1.1", packetNumber: 10)
+        ping.xPing()
     }
 
     override func didReceiveMemoryWarning() {
