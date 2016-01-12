@@ -2,71 +2,13 @@
 //  xSocketPing.c
 //  NetManager
 //
-//  Created by 许文杰 on 1/7/16.
+//  Created by 许文杰 on 1/12/16.
 //  Copyright © 2016 许文杰. All rights reserved.
 //
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>//基本系统数据类型
-#include <sys/socket.h>
-#include <netinet/in.h>
-//get current of time
-#include <sys/time.h>
-#include <arpa/inet.h>//inet_ntoa将一个IP转换成一个互联网标准点分格式的字符串
-#include <unistd.h>//close(int)
-#include <netdb.h>//定义了与网络有关的结构、变量类型、宏、函数等
-//ip packet structure
-#include <netinet/ip.h>
-//icmp packet structure
-#include <netinet/ip_icmp.h>
+#include "xSocketPing.h"
 
 
-//time to live
-int ttl = 64;
-//icmp data size ,icmp header 8bytes,data size 56bytes,the maximum of packet size 64bytes
-int dataSize = 56;
-//packet number
-int sendPacketNumber = 0;
-int recvPacketNumber = 0;
-//ip address
-char * ipAddr;
-
-//send packet of time
-struct timeval *tvSend;
-//receive packet of time
-struct timeval tvRecv;
-
-//Socket address, internet style.
-//the destination address
-struct sockaddr_in dstAddr;
-//the receive address
-struct sockaddr_in recvAddr;
-
-//send icmp buffer
-char sendBuffer[1024] = {0};
-//receive icmp replay buffer
-char recvBuffer[1024] = {0};
-
-//the current process of id
-int pid;
-//socket
-int socketfd = 0;
-
-unsigned short checkSum(unsigned short *buffer, int size);
-double timeSubtract(struct timeval *recvTimeStamp, struct timeval *sendTimeStamp);
-int fillPacket(int packetSequence);
-int sendPacket(int packetSequence);
-void settingIP();
-void getPid();
-int createSocket();
-void settingSocket(int timeout);
-void destorySocket();
-void unPacket(char* packetBuffer,char* back, long size);
-void receivePacket();
-void ping(char *ipAddress, int number, int timeout);
-void calculate(char* back);
 
 //statistics
 void statistics(char* back){
@@ -181,15 +123,12 @@ void unPacket(char* packetBuffer,char* back, long size){
     double rtt;//往返时间
     int ipHeaderLength;//ip header length
     
-    char *error;
-    
     ipHeader = (struct ip *)packetBuffer;
     ipHeaderLength = ipHeader->ip_hl<<2;//求ip报头长度,即ip报头的长度标志乘4
     icmpHeader = (struct icmp *)(packetBuffer + ipHeaderLength);//越过IP头，point to ICMP header
     size -= ipHeaderLength;
     if (size < 8){
-        error = "Unpacket Error:packet size minmum 8 bytes";
-        back = error;
+        back = "Unpacket Error:packet size minmum 8 bytes\n";
     }
     
     if ((icmpHeader->icmp_type == ICMP_ECHOREPLY) && (icmpHeader->icmp_id == pid)) {
@@ -197,10 +136,9 @@ void unPacket(char* packetBuffer,char* back, long size){
         gettimeofday(&tvRecv, NULL);
         //以毫秒为单位计算rtt
         rtt = timeSubtract(&tvRecv, tvSend);
-        sprintf(back,"%ld bytes from %s: icmp_seq=%u ttl=%d time=%.1f ms",size,inet_ntoa(recvAddr.sin_addr),icmpHeader->icmp_seq,ipHeader->ip_ttl,rtt);
+        sprintf(back,"%ld bytes from %s: icmp_seq=%u ttl=%d time=%.1f ms\n",size,inet_ntoa(recvAddr.sin_addr),icmpHeader->icmp_seq,ipHeader->ip_ttl,rtt);
     }else{
-        error = "Unpacket Error";
-        back = error;
+        back = "Unpacket Error\n";
     }
 }
 
@@ -214,15 +152,14 @@ void receivePacket(char* back){
         recvPacketNumber--;
     }else{
         gettimeofday(&tvRecv, NULL);
-        char temp[100] = {0};
-        unPacket(recvBuffer, temp, size);
-        printf("%s\n",temp);
+        //char temp[100] = {0};
+        unPacket(recvBuffer, back, size);
+        //printf("%s\n",temp);
     }
 }
 
-
 void ping(char *ipAddress, int number, int timeout){
-    int packnumber = 0;
+    int packetnumber = 0;
     ipAddr = ipAddress;
     sendPacketNumber = number;
     recvPacketNumber = number;
@@ -231,15 +168,15 @@ void ping(char *ipAddress, int number, int timeout){
     getPid();
     if (createSocket() != -1){
         settingSocket(timeout);
-        printf("PING %s(%s):%d bytes of data.\n",ipAddress,inet_ntoa(dstAddr.sin_addr),dataSize);
-        while(packnumber < number){
-            if (sendPacket(packnumber) != -1){
+        printf("PING %s: %d bytes of data.\n",ipAddress,dataSize);
+        while(packetnumber < number){
+            if (sendPacket(packetnumber) != -1){
                 char back[100] = {0};
                 receivePacket(back);
                 printf("%s",back);
             }
             sleep(1);
-            packnumber++;
+            packetnumber++;
         }
         char back[100] = {0};
         statistics(back);
@@ -247,12 +184,3 @@ void ping(char *ipAddress, int number, int timeout){
         destorySocket();
     }
 }
-
-
-
-
-
-
-
-
-

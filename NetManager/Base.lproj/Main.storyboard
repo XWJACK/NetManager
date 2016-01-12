@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,11 +17,89 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QNV-fB-EsD">
+                                <rect key="frame" x="20" y="267" width="560" height="313"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="192.168.1.1" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Opg-8c-ILo">
+                                <rect key="frame" x="243" y="71" width="176" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4oS-0e-Aof">
+                                <rect key="frame" x="20" y="257" width="560" height="2"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="IP地址:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3mo-Ra-KYE">
+                                <rect key="frame" x="181" y="75" width="54" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ghi-oV-dyB">
+                                <rect key="frame" x="243" y="128" width="64" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="3" minimumValue="3" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Mbz-F0-g4C">
+                                <rect key="frame" x="325" y="128" width="94" height="29"/>
+                                <connections>
+                                    <action selector="xNumberChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="Y2Q-NR-Y4u"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="数量:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H5x-JE-e2m">
+                                <rect key="frame" x="181" y="132" width="39" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4C-kI-cab">
+                                <rect key="frame" x="285" y="193" width="30" height="30"/>
+                                <state key="normal" title="开始"/>
+                                <connections>
+                                    <action selector="beginPing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zqt-oe-Ul2"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QNV-fB-EsD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0mn-H7-AoW"/>
+                            <constraint firstItem="d4C-kI-cab" firstAttribute="top" secondItem="ghi-oV-dyB" secondAttribute="bottom" constant="35" id="5Bu-Ei-kwb"/>
+                            <constraint firstItem="ghi-oV-dyB" firstAttribute="leading" secondItem="H5x-JE-e2m" secondAttribute="trailing" constant="23" id="6SU-qe-612"/>
+                            <constraint firstItem="H5x-JE-e2m" firstAttribute="top" secondItem="3mo-Ra-KYE" secondAttribute="bottom" constant="36" id="CiV-SP-jEg"/>
+                            <constraint firstItem="QNV-fB-EsD" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="HtK-Kv-Qk7"/>
+                            <constraint firstItem="4oS-0e-Aof" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="KJS-bV-sd8"/>
+                            <constraint firstItem="d4C-kI-cab" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L94-uH-ISo"/>
+                            <constraint firstItem="Mbz-F0-g4C" firstAttribute="top" secondItem="Opg-8c-ILo" secondAttribute="bottom" constant="27" id="O3p-FA-wHW"/>
+                            <constraint firstItem="QNV-fB-EsD" firstAttribute="top" secondItem="4oS-0e-Aof" secondAttribute="bottom" constant="8" id="O9f-Wx-Hyv"/>
+                            <constraint firstItem="Opg-8c-ILo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="31" id="Uht-OY-DDB"/>
+                            <constraint firstItem="ghi-oV-dyB" firstAttribute="top" secondItem="Opg-8c-ILo" secondAttribute="bottom" constant="27" id="XX4-vo-8VC"/>
+                            <constraint firstItem="4oS-0e-Aof" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="XoZ-BO-PLC"/>
+                            <constraint firstItem="Mbz-F0-g4C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="72" id="ZIm-RP-VJb"/>
+                            <constraint firstItem="4oS-0e-Aof" firstAttribute="top" secondItem="d4C-kI-cab" secondAttribute="bottom" constant="34" id="aDg-ne-CMP"/>
+                            <constraint firstItem="3mo-Ra-KYE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-92" id="c5B-I7-fMe"/>
+                            <constraint firstItem="ghi-oV-dyB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-25" id="eK2-RL-DQe"/>
+                            <constraint firstItem="QNV-fB-EsD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="fyi-O3-B8Z"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="QNV-fB-EsD" secondAttribute="bottom" constant="20" id="hQo-4v-rn4"/>
+                            <constraint firstItem="Opg-8c-ILo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="51" id="heR-ow-Eze"/>
+                            <constraint firstItem="H5x-JE-e2m" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-99.5" id="mNM-vu-19H"/>
+                            <constraint firstItem="Opg-8c-ILo" firstAttribute="leading" secondItem="3mo-Ra-KYE" secondAttribute="trailing" constant="8" id="pEU-dV-jTn"/>
+                            <constraint firstItem="Mbz-F0-g4C" firstAttribute="leading" secondItem="ghi-oV-dyB" secondAttribute="trailing" constant="18" id="pjg-nv-Hzh"/>
+                            <constraint firstItem="4oS-0e-Aof" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vE6-9x-VOE"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="xip" destination="Opg-8c-ILo" id="vT6-gc-XD7"/>
+                        <outlet property="xnumber" destination="ghi-oV-dyB" id="emt-JD-71P"/>
+                        <outlet property="xprogress" destination="4oS-0e-Aof" id="kAs-JA-S9W"/>
+                        <outlet property="xtext" destination="QNV-fB-EsD" id="9mW-VR-WWx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="321" y="257"/>
         </scene>
     </scenes>
 </document>

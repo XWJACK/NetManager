@@ -12,8 +12,8 @@
 		F12600CC1C3D72B800ACC578 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F12600CA1C3D72B800ACC578 /* Main.storyboard */; };
 		F12600CE1C3D72B800ACC578 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F12600CD1C3D72B800ACC578 /* Assets.xcassets */; };
 		F12600D11C3D72B800ACC578 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F12600CF1C3D72B800ACC578 /* LaunchScreen.storyboard */; };
-		F12600DE1C3D73AD00ACC578 /* xSocketPing.c in Sources */ = {isa = PBXBuildFile; fileRef = F12600DD1C3D73AD00ACC578 /* xSocketPing.c */; settings = {ASSET_TAGS = (); }; };
 		F12600E11C3D745700ACC578 /* xSocketPing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12600E01C3D745700ACC578 /* xSocketPing.swift */; settings = {ASSET_TAGS = (); }; };
+		F1EE339A1C44D816006B378A /* xSocketPing.c in Sources */ = {isa = PBXBuildFile; fileRef = F1EE33981C44D816006B378A /* xSocketPing.c */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +25,9 @@
 		F12600D01C3D72B800ACC578 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F12600D21C3D72B800ACC578 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F12600DC1C3D73AC00ACC578 /* NetManager-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetManager-Bridging-Header.h"; sourceTree = "<group>"; };
-		F12600DD1C3D73AD00ACC578 /* xSocketPing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xSocketPing.c; path = C/xSocketPing.c; sourceTree = "<group>"; };
 		F12600E01C3D745700ACC578 /* xSocketPing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = xSocketPing.swift; path = C/xSocketPing.swift; sourceTree = "<group>"; };
+		F1EE33981C44D816006B378A /* xSocketPing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xSocketPing.c; path = C/xSocketPing.c; sourceTree = "<group>"; };
+		F1EE33991C44D816006B378A /* xSocketPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xSocketPing.h; path = C/xSocketPing.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +98,10 @@
 		F12600DB1C3D731100ACC578 /* C */ = {
 			isa = PBXGroup;
 			children = (
-				F12600DD1C3D73AD00ACC578 /* xSocketPing.c */,
 				F12600E01C3D745700ACC578 /* xSocketPing.swift */,
 				F12600DC1C3D73AC00ACC578 /* NetManager-Bridging-Header.h */,
+				F1EE33981C44D816006B378A /* xSocketPing.c */,
+				F1EE33991C44D816006B378A /* xSocketPing.h */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -176,8 +178,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F12600C91C3D72B800ACC578 /* ViewController.swift in Sources */,
+				F1EE339A1C44D816006B378A /* xSocketPing.c in Sources */,
 				F12600C71C3D72B800ACC578 /* AppDelegate.swift in Sources */,
-				F12600DE1C3D73AD00ACC578 /* xSocketPing.c in Sources */,
 				F12600E11C3D745700ACC578 /* xSocketPing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
