@@ -42,21 +42,24 @@ public class xSocketPing{
             settingSocket(Int32(timeout))
             let message:String = "PING \(ipAddress): 56 bytes of data.\n"
             refresh(message, speed: 0.0)
-            let tempmessage:UnsafeMutablePointer = UnsafeMutablePointer<Int8>((message as NSString).UTF8String)
+            //将String转换为UnsafeMutablePointer<CChar>,相当于char tempmessage[100]
+            let tempmessage:UnsafeMutablePointer = UnsafeMutablePointer<CChar>.alloc(100)
             var packetsequence:Int = 0
             var speed:Float = 0.0
             
             while packetsequence < packetNumber {
                 if sendPacket(Int32(packetsequence)) != -1 {
                     receivePacket(tempmessage)
+                    //Calculate percentage
                     speed = (Float(packetNumber) - (Float(packetNumber) - Float(packetsequence))) / Float(packetNumber)
-                    refresh(String(UTF8String: tempmessage)!, speed: speed)
+                    //将UnsafeMutablePointer<CChar>转换为String
+                    refresh(String.fromCString(tempmessage)!, speed: speed)
                 }
                 sleep(1);
                 packetsequence++
             }
             statistics(tempmessage)
-            refresh(String(UTF8String: tempmessage)!, speed: 1)
+            refresh(String.fromCString(tempmessage)!, speed: 1)
             destorySocket()
         }
     }
