@@ -2,8 +2,8 @@
 //  xSocketPing.h
 //  NetManager
 //
-//  Created by 许文杰 on 1/12/16.
-//  Copyright © 2016 许文杰. All rights reserved.
+//  Created by XWJACK on 1/12/16.
+//  Copyright © 2016 XWJACK. All rights reserved.
 //
 
 #ifndef xSocketPing_h
@@ -33,7 +33,7 @@ int dataSize = 56;
 int sendPacketNumber;
 int recvPacketNumber;
 //ip address
-char * ipAddr;
+char *ipAddr;
 
 //send packet of time
 struct timeval *tvSend;
@@ -65,11 +65,11 @@ int sendPacket(int packetSequence);
 void settingIP();
 void getPid();
 int createSocket();
-void settingSocket(int timeout);
+void settingSocket(struct timeval timeout);
 void destorySocket();
 void unPacket(char* packetBuffer,char* back, long size);
 void receivePacket(char* back);
-void ping(char *ipAddress, int number, int timeout);
+void ping(char *ipAddress, int number, struct timeval timeout);
 
 
 #endif /* xSocketPing_h */

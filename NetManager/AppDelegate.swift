@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  NetManager
 //
-//  Created by 许文杰 on 1/7/16.
-//  Copyright © 2016 许文杰. All rights reserved.
+//  Created by XWJACK on 1/7/16.
+//  Copyright © 2016 XWJACK. All rights reserved.
 //
 
 import UIKit

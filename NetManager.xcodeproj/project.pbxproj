@@ -13,7 +13,17 @@
 		F12600CE1C3D72B800ACC578 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F12600CD1C3D72B800ACC578 /* Assets.xcassets */; };
 		F12600D11C3D72B800ACC578 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F12600CF1C3D72B800ACC578 /* LaunchScreen.storyboard */; };
 		F12600E11C3D745700ACC578 /* xSocketPing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12600E01C3D745700ACC578 /* xSocketPing.swift */; settings = {ASSET_TAGS = (); }; };
+		F139A7031C9410DE0015B942 /* GetMAC.c in Sources */ = {isa = PBXBuildFile; fileRef = F139A7011C9410DE0015B942 /* GetMAC.c */; settings = {ASSET_TAGS = (); }; };
+		F139A7051C9424970015B942 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F139A7041C9424970015B942 /* MainTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		F139A7111C942E290015B942 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F139A7101C942E290015B942 /* Scanner.swift */; settings = {ASSET_TAGS = (); }; };
+		F139A7181C94398C0015B942 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F139A7171C94398C0015B942 /* Network.swift */; settings = {ASSET_TAGS = (); }; };
 		F1EE339A1C44D816006B378A /* xSocketPing.c in Sources */ = {isa = PBXBuildFile; fileRef = F1EE33981C44D816006B378A /* xSocketPing.c */; settings = {ASSET_TAGS = (); }; };
+		F1F15B7F1C68C3CF00A47970 /* InterfaceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F15B7E1C68C3CF00A47970 /* InterfaceInformation.swift */; settings = {ASSET_TAGS = (); }; };
+		F1F15B861C68D5E900A47970 /* MACandHostName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F15B851C68D5E900A47970 /* MACandHostName.swift */; settings = {ASSET_TAGS = (); }; };
+		F1F716001C919553007C3E8D /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F715FF1C919553007C3E8D /* MainTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		F1FB3D5D1C953B5700EAD0F9 /* Local.png in Resources */ = {isa = PBXBuildFile; fileRef = F1FB3D5A1C953B5700EAD0F9 /* Local.png */; settings = {ASSET_TAGS = (); }; };
+		F1FB3D5E1C953B5700EAD0F9 /* Wifi.png in Resources */ = {isa = PBXBuildFile; fileRef = F1FB3D5B1C953B5700EAD0F9 /* Wifi.png */; settings = {ASSET_TAGS = (); }; };
+		F1FB3D5F1C953B5700EAD0F9 /* User.png in Resources */ = {isa = PBXBuildFile; fileRef = F1FB3D5C1C953B5700EAD0F9 /* User.png */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +36,19 @@
 		F12600D21C3D72B800ACC578 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F12600DC1C3D73AC00ACC578 /* NetManager-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NetManager-Bridging-Header.h"; sourceTree = "<group>"; };
 		F12600E01C3D745700ACC578 /* xSocketPing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = xSocketPing.swift; path = C/xSocketPing.swift; sourceTree = "<group>"; };
+		F139A7011C9410DE0015B942 /* GetMAC.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = GetMAC.c; sourceTree = "<group>"; };
+		F139A7021C9410DE0015B942 /* GetMAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetMAC.h; sourceTree = "<group>"; };
+		F139A7041C9424970015B942 /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		F139A7101C942E290015B942 /* Scanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		F139A7171C94398C0015B942 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		F1EE33981C44D816006B378A /* xSocketPing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xSocketPing.c; path = C/xSocketPing.c; sourceTree = "<group>"; };
 		F1EE33991C44D816006B378A /* xSocketPing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xSocketPing.h; path = C/xSocketPing.h; sourceTree = "<group>"; };
+		F1F15B7E1C68C3CF00A47970 /* InterfaceInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceInformation.swift; sourceTree = "<group>"; };
+		F1F15B851C68D5E900A47970 /* MACandHostName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MACandHostName.swift; sourceTree = "<group>"; };
+		F1F715FF1C919553007C3E8D /* MainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		F1FB3D5A1C953B5700EAD0F9 /* Local.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Local.png; sourceTree = "<group>"; };
+		F1FB3D5B1C953B5700EAD0F9 /* Wifi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Wifi.png; sourceTree = "<group>"; };
+		F1FB3D5C1C953B5700EAD0F9 /* User.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = User.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +81,10 @@
 		F12600C51C3D72B800ACC578 /* NetManager */ = {
 			isa = PBXGroup;
 			children = (
-				F12600DB1C3D731100ACC578 /* C */,
+				F12600DC1C3D73AC00ACC578 /* NetManager-Bridging-Header.h */,
+				F1F716011C9195F2007C3E8D /* img */,
+				F1F15B841C68D5CC00A47970 /* Scanner */,
+				F12600DB1C3D731100ACC578 /* xSocetPing */,
 				F12600DA1C3D72F000ACC578 /* Storyboard */,
 				F12600D91C3D72E200ACC578 /* Delegate */,
 				F12600D81C3D72D200ACC578 /* ViewController */,
@@ -74,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				F12600C81C3D72B800ACC578 /* ViewController.swift */,
+				F1F715FF1C919553007C3E8D /* MainTableViewCell.swift */,
+				F139A7041C9424970015B942 /* MainTableViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -95,15 +121,45 @@
 			name = Storyboard;
 			sourceTree = "<group>";
 		};
-		F12600DB1C3D731100ACC578 /* C */ = {
+		F12600DB1C3D731100ACC578 /* xSocetPing */ = {
 			isa = PBXGroup;
 			children = (
 				F12600E01C3D745700ACC578 /* xSocketPing.swift */,
-				F12600DC1C3D73AC00ACC578 /* NetManager-Bridging-Header.h */,
 				F1EE33981C44D816006B378A /* xSocketPing.c */,
 				F1EE33991C44D816006B378A /* xSocketPing.h */,
 			);
-			name = C;
+			name = xSocetPing;
+			sourceTree = "<group>";
+		};
+		F139A7001C940A740015B942 /* GetMAC */ = {
+			isa = PBXGroup;
+			children = (
+				F139A7011C9410DE0015B942 /* GetMAC.c */,
+				F139A7021C9410DE0015B942 /* GetMAC.h */,
+			);
+			name = GetMAC;
+			sourceTree = "<group>";
+		};
+		F1F15B841C68D5CC00A47970 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				F139A7101C942E290015B942 /* Scanner.swift */,
+				F139A7171C94398C0015B942 /* Network.swift */,
+				F1F15B851C68D5E900A47970 /* MACandHostName.swift */,
+				F1F15B7E1C68C3CF00A47970 /* InterfaceInformation.swift */,
+				F139A7001C940A740015B942 /* GetMAC */,
+			);
+			name = Scanner;
+			sourceTree = "<group>";
+		};
+		F1F716011C9195F2007C3E8D /* img */ = {
+			isa = PBXGroup;
+			children = (
+				F1FB3D5A1C953B5700EAD0F9 /* Local.png */,
+				F1FB3D5B1C953B5700EAD0F9 /* Wifi.png */,
+				F1FB3D5C1C953B5700EAD0F9 /* User.png */,
+			);
+			name = img;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +194,6 @@
 				TargetAttributes = {
 					F12600C21C3D72B800ACC578 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = GKYAX8MAXU;
 					};
 				};
 			};
@@ -165,9 +220,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1FB3D5F1C953B5700EAD0F9 /* User.png in Resources */,
 				F12600D11C3D72B800ACC578 /* LaunchScreen.storyboard in Resources */,
+				F1FB3D5E1C953B5700EAD0F9 /* Wifi.png in Resources */,
 				F12600CE1C3D72B800ACC578 /* Assets.xcassets in Resources */,
 				F12600CC1C3D72B800ACC578 /* Main.storyboard in Resources */,
+				F1FB3D5D1C953B5700EAD0F9 /* Local.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,8 +237,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F12600C91C3D72B800ACC578 /* ViewController.swift in Sources */,
+				F139A7181C94398C0015B942 /* Network.swift in Sources */,
 				F1EE339A1C44D816006B378A /* xSocketPing.c in Sources */,
+				F139A7031C9410DE0015B942 /* GetMAC.c in Sources */,
+				F1F15B861C68D5E900A47970 /* MACandHostName.swift in Sources */,
+				F139A7051C9424970015B942 /* MainTableViewController.swift in Sources */,
+				F1F716001C919553007C3E8D /* MainTableViewCell.swift in Sources */,
 				F12600C71C3D72B800ACC578 /* AppDelegate.swift in Sources */,
+				F1F15B7F1C68C3CF00A47970 /* InterfaceInformation.swift in Sources */,
+				F139A7111C942E290015B942 /* Scanner.swift in Sources */,
 				F12600E11C3D745700ACC578 /* xSocketPing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,8 +2,8 @@
 //  xSocketPing.c
 //  NetManager
 //
-//  Created by 许文杰 on 1/12/16.
-//  Copyright © 2016 许文杰. All rights reserved.
+//  Created by XWJACK on 1/12/16.
+//  Copyright © 2016 XWJACK. All rights reserved.
 //
 
 #include "xSocketPing.h"
@@ -96,18 +96,19 @@ int createSocket(){
         printf("Create Socket Error\n");
         return -1;
     }
+    
     return 0;
 }
 
 //setting socket
-void settingSocket(int timeout){
+void settingSocket(struct timeval timeout){
     int size = 50 * 1024;
-    //setting timeout seconds or you can set it by microseconds
-    struct timeval timeOut;
-    timeOut.tv_sec = timeout;
+//    //setting timeout seconds or you can set it by microseconds
+//    struct timeval timeOut;
+//    timeOut.tv_sec = timeout;
     //扩大套接字接收缓冲区到50K这样做主要为了减小接收缓冲区溢出的可能性,若无意中ping一个广播地址或多播地址,将会引来大量应答
     setsockopt(socketfd, SOL_SOCKET, SO_RCVBUF, &size, sizeof(size));
-    setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeOut, sizeof(timeOut));
+    setsockopt(socketfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
 }
 
 //destory socket
@@ -136,7 +137,7 @@ void unPacket(char* packetBuffer,char* back, long size){
         gettimeofday(&tvRecv, NULL);
         //以毫秒为单位计算rtt
         rtt = timeSubtract(&tvRecv, tvSend);
-        sprintf(back,"%ld bytes from %s: icmp_seq=%u ttl=%d time=%.1f ms\n",size,inet_ntoa(recvAddr.sin_addr),icmpHeader->icmp_seq,ipHeader->ip_ttl,rtt);
+        sprintf(back,"%ld bytes %s: icmp_seq=%u ttl=%d time=%.1f ms\n",size,inet_ntoa(recvAddr.sin_addr),icmpHeader->icmp_seq,ipHeader->ip_ttl,rtt);
     }else{
         back = "Unpacket Error\n";
     }
@@ -158,7 +159,7 @@ void receivePacket(char* back){
     }
 }
 
-void ping(char *ipAddress, int number, int timeout){
+void ping(char *ipAddress, int number, struct timeval timeout){
     int packetnumber = 0;
     ipAddr = ipAddress;
     sendPacketNumber = number;

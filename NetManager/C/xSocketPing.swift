@@ -2,8 +2,8 @@
 //  xSocketPing.swift
 //  NetManager
 //
-//  Created by 许文杰 on 1/7/16.
-//  Copyright © 2016 许文杰. All rights reserved.
+//  Created by XWJACK on 1/7/16.
+//  Copyright © 2016 XWJACK. All rights reserved.
 //
 
 import Foundation
@@ -13,21 +13,23 @@ public class xSocketPing{
     private var ipAddress:String
     //default packet number 3 or you can setting it by yourself
     private var packetNumber:Int = 3
-    private var timeout:Int = 1
+    //private var timeout:Float = 0.5
+    /// Default timeout is 20 microsecond
+    private var timeout:timeval = timeval(tv_sec: 0, tv_usec: 20)
     //refresh UI
     weak var delegate:refreshTextDelegate?
 
-    init(ipAddress:String, delegate:refreshTextDelegate){
+    init(ipAddress:String, delegate:refreshTextDelegate?){
         self.ipAddress = ipAddress
         self.delegate = delegate
     }
-    convenience init(ipAddress:String, packetNumber:Int, delegate:refreshTextDelegate){
+    convenience init(ipAddress:String, packetNumber:Int, delegate:refreshTextDelegate?){
         self.init(ipAddress: ipAddress,delegate: delegate)
         self.packetNumber = packetNumber
     }
-    convenience init(ipAddress:String, packetNumber:Int, timeout:Int, delegate:refreshTextDelegate){
+    convenience init(ipAddress:String, packetNumber:Int, timeout:Int, delegate:refreshTextDelegate?){
         self.init(ipAddress: ipAddress,packetNumber: packetNumber,delegate: delegate)
-        self.timeout = timeout
+        self.timeout = timeval(tv_sec: 0, tv_usec: Int32(timeout))
     }
     
     public func xPing(){
@@ -39,7 +41,7 @@ public class xSocketPing{
         settingIP()
         getPid()
         if createSocket() != -1 {
-            settingSocket(Int32(timeout))
+            settingSocket(timeout)
             let message:String = "PING \(ipAddress): 56 bytes of data.\n"
             refresh(message, speed: 0.0)
             //将String转换为UnsafeMutablePointer<CChar>,相当于char tempmessage[100]
