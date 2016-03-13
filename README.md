@@ -1,4 +1,5 @@
 # Swift和C混合Socket编程实现简单的ping命令
+# 使用Swift进行主机发现和MAC地址解析
 
 ![](/xwjack.gif?raw=true)
 
