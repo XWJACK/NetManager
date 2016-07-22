@@ -60,28 +60,30 @@ class GetInterfaceInformation{
         
         var ifaddr:UnsafeMutablePointer<ifaddrs> = nil
         //retrieve the current interface -- return 0 on success
-        if getifaddrs(&ifaddr) == 0 {
-            var interface = ifaddr
-            //loop through linked list of interface
-            while interface != nil {
-                if interface.memory.ifa_addr.memory.sa_family == UInt8(AF_INET) {//ipv4
-                    let interfaceName = String.fromCString(interface.memory.ifa_name)
-                    let interfaceAddress = String.fromCString(inet_ntoa(UnsafeMutablePointer<sockaddr_in>(interface.memory.ifa_addr).memory.sin_addr))
-                    let interfaceNetmask = String.fromCString(inet_ntoa(UnsafeMutablePointer<sockaddr_in>(interface.memory.ifa_netmask).memory.sin_addr))
-                    //ifa_dstaddr /* P2P interface destination */
-                    //The ifa_dstaddr field references the destination address on a P2P inter-face, interface,
-                    //face, if one exists, otherwise it contains the broadcast address.
-                    let interfaceBroadcast = String.fromCString(inet_ntoa(UnsafeMutablePointer<sockaddr_in>(interface.memory.ifa_dstaddr).memory.sin_addr))
-                    
-                    if let name = interfaceName {
-                        information[name] = [interfaceAddress!,interfaceNetmask!,interfaceBroadcast!]
-                    }
+        guard getifaddrs(&ifaddr) == 0 else { return information }
+        
+        var interface = ifaddr
+        //loop through linked list of interface
+        while interface != nil {
+            if interface.memory.ifa_addr.memory.sa_family == UInt8(AF_INET) {//ipv4
+                let interfaceName = String.fromCString(interface.memory.ifa_name)
+                let interfaceAddress = String.fromCString(inet_ntoa(UnsafeMutablePointer<sockaddr_in>(interface.memory.ifa_addr).memory.sin_addr))
+                let interfaceNetmask = String.fromCString(inet_ntoa(UnsafeMutablePointer<sockaddr_in>(interface.memory.ifa_netmask).memory.sin_addr))
+                //ifa_dstaddr /* P2P interface destination */
+                //The ifa_dstaddr field references the destination address on a P2P inter-face, interface,
+                //face, if one exists, otherwise it contains the broadcast address.
+                let interfaceBroadcast = String.fromCString(inet_ntoa(UnsafeMutablePointer<sockaddr_in>(interface.memory.ifa_dstaddr).memory.sin_addr))
+                
+                if let name = interfaceName {
+                    information[name] = [interfaceAddress!,interfaceNetmask!,interfaceBroadcast!]
                 }
-                interface = interface.memory.ifa_next
             }
-            freeifaddrs(ifaddr)
+            interface = interface.memory.ifa_next
         }
+        freeifaddrs(ifaddr)
+        print(information)
         return information
+        
     }
     
     /**

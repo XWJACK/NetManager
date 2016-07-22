@@ -39,26 +39,27 @@ class ViewController: UIViewController,refreshTextDelegate {
     }
     
     @IBAction func beginPing(sender: UIButton) {
-        sender.enabled = false
-        xip.enabled = false
-        xnumber.enabled = false
+//        sender.enabled = false
+//        xip.enabled = false
+//        xnumber.enabled = false
+//        
+//        xprogress.progress = 0
+//        xtext.text = ""
+//        
+//        let ip = xip.text
+//        if ip == ""{
+//            let alert = UIAlertView(title: "Error", message: "No IP Address", delegate: self, cancelButtonTitle: "OK")
+//            alert.show()
+//        }else{
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+//                let ping:xSocketPing = xSocketPing(ipAddress: "\(ip!)", packetNumber: self.number, delegate: self)
+//                ping.xPing()
+//            })
+//        }
+//        xnumber.enabled = true
+//        xip.enabled = true
+//        sender.enabled = true
         
-        xprogress.progress = 0
-        xtext.text = ""
-        
-        let ip = xip.text
-        if ip == ""{
-            let alert = UIAlertView(title: "Error", message: "No IP Address", delegate: self, cancelButtonTitle: "OK")
-            alert.show()
-        }else{
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                let ping:xSocketPing = xSocketPing(ipAddress: "\(ip!)", packetNumber: self.number, delegate: self)
-                ping.xPing()
-            })
-        }
-        xnumber.enabled = true
-        xip.enabled = true
-        sender.enabled = true
     }
     
     

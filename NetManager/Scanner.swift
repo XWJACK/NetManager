@@ -37,7 +37,7 @@ public class Scanner {
                     })
                 }
             //dispatch_group_notify(group, dispatch_queue_create(nil, DISPATCH_QUEUE_SERIAL), {
-                NSThread.sleepForTimeInterval(5)
+                NSThread.sleepForTimeInterval(5)//这是个败笔
                 
                 for i in allhostip {
                     //if ip is myslef, jump.

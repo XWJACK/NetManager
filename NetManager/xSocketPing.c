@@ -130,6 +130,7 @@ void unPacket(char* packetBuffer,char* back, long size){
     size -= ipHeaderLength;
     if (size < 8){
         back = "Unpacket Error:packet size minmum 8 bytes\n";
+        return;
     }
     
     if ((icmpHeader->icmp_type == ICMP_ECHOREPLY) && (icmpHeader->icmp_id == pid)) {
